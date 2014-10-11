@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name= "project" default= "war">
+
+	<property name= "root" value= "${basedir}/build"></property>
+	<property name= "build" value= "${basedir}/build/war"></property>
+	<property name= "class" value="${basedir}/build/classes"></property>
+	<property name= "src" value= "${basedir}/src"></property>
+	<property name= "war" value= "${build}/antdemo.war"></property>
+	<property name= "webroot" value= "${basedir}/WebRoot"></property>
+	<property name= "lib" value= "${webroot}/WEB-INF/lib"></property>
+	<property name= "web.xml" value="${webroot}/WEB-INF/web.xml"></property>
+	<property name= "jsp" value= "**/*.jsp"></property>
+
+	<target name="clean">
+		<delete dir= "${root}" />
+	</target>
+
+	<target name= "compile">
+		<mkdir dir= "${build}"/>
+		<mkdir dir= "${class}"/>
+		<javac srcdir= "${src}" destdir= "${class}" />
+	</target>
+
+	<target name="war" depends="clean,compile">
+		<war destfile="${war}" webxml= "${web.xml}">
+			<fileset dir= "${webroot}" includes= "${jsp}" />
+			<lib dir= "${lib}" />
+			<classes dir= "${class}" />
+		</war>
+	</target>
+
+</project>
